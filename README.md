@@ -1,4 +1,4 @@
-# posos_sample
+# Machine Learning Exercice
 
 ## Introduction
 
