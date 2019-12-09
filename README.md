@@ -62,7 +62,7 @@ Data are symetricly encrypted with GPG using a passphrase. To decrypt the file u
 ```bash
 gpg -d data.tgz.gpg  | tar -xz
 ```
-To get the passphrase, send me an email.
+To get the passphrase, send me an email (prenom arobase posos.fr)
 
 - - -
 
