@@ -58,7 +58,7 @@ The only required dependencies you should've installed on your system in order t
 
 ### Data
 
-Data are symetricly encrypted with GPG using a passphrase. To decrypt the file use the following command:
+Data are symetrically encrypted with GPG using a passphrase. To decrypt the file use the following command:
 ```bash
 gpg -d data.tgz.gpg  | tar -xz
 ```
@@ -70,7 +70,7 @@ To get the passphrase, send me an email (prenom arobase posos.fr)
 
 ### Building a model
 
-Building a machine learning model consist, non extensively, into the following parts:
+Building a machine learning model consists in these non exhaustive steps:
   - split the training data into a train and a validation set;
   - build and train a model on the train set;
   - obtain micro and macro precision, recall and F1 score over the validation set;
@@ -78,22 +78,22 @@ Building a machine learning model consist, non extensively, into the following p
   - export the model in a suitable format to be served
 
 The built model should be built with:
-  - an encoder part, which produces a vector representation of the input text. To build this encoder part, you can start with a TF IDF encoder, or use a neural encoder;
-  - a decoder part, which consists here of a classifier. You may want to start with SVM and then use a neural decoder.
+  - an encoder, which produces a vector representation of the input text. To build this encoder, you can start with a TF IDF encoder, or use a neural encoder;
+  - a decoder, which is here a classifier. You may want to start with an SVM and then use a neural decoder.
 
-The `train` rule have to build the training image defined in `train.Dockerfile` and run a container in which those steps are executed.
+The `train` rule has to build the training image defined in `train.Dockerfile` and run a container in which those steps are executed.
 
 ### Serving a model as a microservice
 
-To integrate the model into a larger applicaiton in some way, 
+To integrate the model into a larger application in some way, 
 
 - serve the model using a CPU only machine;
 - build a web application - endpoint - using route `/intent` on port `4002` - to use the served model as a microservice;
-- the endpoint should return a json response whos format is specified at the end of the section;
+- the endpoint should return a json response whose format is specified at the end of the section;
 
-A functional approach is to build a model server. This is an application to manage and serve models, which allow to serve multiple versions of a same model and get distinct inferences for each version. You can find more details of the way that tensorflow works to put model into production [here](https://www.tensorflow.org/tfx/serving/serving_basic), using a model server available as a [docker image](https://hub.docker.com/r/tensorflow/serving).
+A functional approach is to build a model server. This is an application that manages and serves models, and is able to serve multiple versions of a same model and get distinct inferences for each version. You can find more details of the way that tensorflow works to put model into production [here](https://www.tensorflow.org/tfx/serving/serving_basic), using a model server available as a [docker image](https://hub.docker.com/r/tensorflow/serving).
 
-The `api` rule have to take the exported model from the `train` rule and start a microservice as a container defined in an `api.Dockerfile` image.
+The `api` rule has to take the exported model from the `train` rule and start a microservice as a container defined in an `api.Dockerfile` image.
 
 Once the microservice has been started, you should be abble to request it using the following command:
 ```bash
@@ -109,7 +109,7 @@ And get the following response format:
 
 ### Testing the project
 
-A working project should be abble to serve a model through a local API using the following commands:
+A working project should be able to serve a model through a local API using the following commands:
 ```bash
 make train; make api
 ```
@@ -124,7 +124,7 @@ curl -G "http://localhost:4002/intent" --data-urlencode "query=risques poisson c
 
 ### Makefile
 
-Makefile based on [GNU Make](https://www.gnu.org/software/make/) provides command to automate common tasks. 
+Makefile based on [GNU Make](https://www.gnu.org/software/make/) provides a command to automate common tasks. 
 
 The documentation can be found [online](https://www.gnu.org/software/make/manual/make.html).
 
@@ -154,7 +154,7 @@ Examples of docker images can be found in [examples directory](/examples/docker)
 ## Bonus part
 
 - Implement a `test` in your Makefile to request the api with the provided test set to get predictions in a `(ID,question,intent)` format saved to a `predictions.csv` file in the root of your repository;
-- Use of an hyperparameter optimizer on a fixed validation set;
+- Use of a hyperparameter optimizer on a fixed validation set;
 - Quantify the variability of model performance;
 - Build a web interface for the API.
 
